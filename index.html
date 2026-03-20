@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini League</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { padding: 8px; margin: 5px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+  </style>
+</head>
+<body>
+
+<h1>🏆 Mini League</h1>
+
+<input id="name" placeholder="Enter player name">
+<button onclick="addPlayer()">Add</button>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Points</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+let players = [];
+
+function render() {
+  const tbody = document.querySelector("tbody");
+  tbody.innerHTML = "";
+
+  players.sort((a,b)=>b.points-a.points);
+
+  players.forEach((p, i) => {
+    const row = `
+      <tr>
+        <td>${p.name}</td>
+        <td>${p.points}</td>
+        <td>
+          <button onclick="addPoints(${i},1)">+1</button>
+          <button onclick="addPoints(${i},-1)">-1</button>
+        </td>
+      </tr>`;
+    tbody.innerHTML += row;
+  });
+}
+
+function addPlayer() {
+  const name = document.getElementById("name").value;
+  if (!name) return;
+  players.push({name, points:0});
+  document.getElementById("name").value = "";
+  render();
+}
+
+function addPoints(i, pts) {
+  players[i].points += pts;
+  render();
+}
+</script>
+
+</body>
+</html>
