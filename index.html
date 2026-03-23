@@ -11,7 +11,11 @@
       font-family: 'Comfortaa', sans-serif;
       padding: 20px;
       color: white;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
+
+      /* YOUR IMAGE BACKGROUND */
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+
       min-height: 100vh;
     }
 
@@ -22,10 +26,10 @@
     .container {
       max-width: 600px;
       margin: auto;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6); /* keeps text readable */
       padding: 20px;
       border-radius: 15px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
 
     input {
