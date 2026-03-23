@@ -3,29 +3,91 @@
 <head>
   <title>Mini League</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    input, button { padding: 8px; margin: 5px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      color: white;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    input {
+      padding: 10px;
+      width: 70%;
+      border-radius: 8px;
+      border: none;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #00c6ff;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #00a3cc;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(0,0,0,0.6);
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255,255,255,0.05);
+    }
   </style>
 </head>
 <body>
 
-<h1>🏆 Mini League</h1>
+<div class="container">
+  <h1>🏆 Mini League</h1>
 
-<input id="name" placeholder="Enter player name">
-<button onclick="addPlayer()">Add</button>
+  <input id="name" placeholder="Enter player name">
+  <button onclick="addPlayer()">Add</button>
 
-<table id="table">
-  <thead>
-    <tr>
-      <th>Player</th>
-      <th>Points</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Points</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
 <script>
 let players = [];
