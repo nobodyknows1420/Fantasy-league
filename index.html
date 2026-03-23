@@ -60,6 +60,12 @@
       background: #cc0000;
     }
 
+    .winner {
+      background: gold !important;
+      color: black;
+      font-weight: bold;
+    }
+
     table {
       border-collapse: collapse;
       width: 100%;
@@ -104,7 +110,11 @@
 </div>
 
 <script>
-let players = [];
+let players = JSON.parse(localStorage.getItem("league")) || [];
+
+function save() {
+  localStorage.setItem("league", JSON.stringify(players));
+}
 
 function render() {
   const tbody = document.querySelector("tbody");
@@ -113,9 +123,11 @@ function render() {
   players.sort((a,b)=>b.points-a.points);
 
   players.forEach((p, i) => {
+    const isWinner = i === 0 && players.length > 0;
+
     const row = `
-      <tr>
-        <td>${p.name}</td>
+      <tr class="${isWinner ? 'winner' : ''}">
+        <td>${isWinner ? '🏆 ' : ''}${p.name}</td>
         <td>${p.points}</td>
         <td>
           <button onclick="addPoints(${i},3)">+3</button>
@@ -132,18 +144,23 @@ function addPlayer() {
   if (!name) return;
   players.push({name, points:0});
   document.getElementById("name").value = "";
+  save();
   render();
 }
 
 function addPoints(i, pts) {
   players[i].points += pts;
+  save();
   render();
 }
 
 function deletePlayer(i) {
   players.splice(i, 1);
+  save();
   render();
 }
+
+render();
 </script>
 
 </body>
