@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Leaderboard</title>
+  <title>Mini League</title>
 
   <!-- Comfortaa Font -->
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
@@ -12,25 +12,19 @@
       padding: 20px;
       color: white;
 
-      /* YOUR IMAGE BACKGROUND */
-      background: url(background: url('background.jpg') no-repeat center center fixed;
-background-size: cover;) no-repeat center center fixed;
-      background-size: cover;
-
+      /* Background image (replace if needed later) */
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
       min-height: 100vh;
-    }
-
-    h1 {
-      text-align: center;
     }
 
     .container {
       max-width: 600px;
       margin: auto;
-      background: rgba(0, 0, 0, 0.6); /* keeps text readable */
+      background: rgba(0, 0, 0, 0.6);
       padding: 20px;
       border-radius: 15px;
       backdrop-filter: blur(8px);
+      text-align: center;
     }
 
     input {
@@ -59,10 +53,6 @@ background-size: cover;) no-repeat center center fixed;
     .delete-btn {
       background: #ff4d4d;
       color: white;
-    }
-
-    .delete-btn:hover {
-      background: #cc0000;
     }
 
     .winner {
@@ -97,8 +87,12 @@ background-size: cover;) no-repeat center center fixed;
 <body>
 
 <div class="container">
- <div style="text-align:center;">
- <img src="PASTE-LINK-HERE" style="width:80px; margin-bottom:10px;">
+
+  <!-- 🔥 LOGO (PASTE YOUR RAW LINK HERE) -->
+  <img src="PASTE-YOUR-LOGO-LINK-HERE" style="width:80px; margin-bottom:10px;">
+
+  <h1>🏆 Mini League</h1>
+
   <input id="name" placeholder="Enter player name">
   <button onclick="addPlayer()">Add</button>
 
