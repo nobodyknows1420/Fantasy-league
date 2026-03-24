@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Leaderboard</title>
+  <title>Mini League</title>
 
   <!-- Comfortaa Font -->
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
@@ -11,8 +11,6 @@
       font-family: 'Comfortaa', sans-serif;
       padding: 20px;
       color: white;
-
-      /* Background image (replace if needed later) */
       background: linear-gradient(135deg, #1e3c72, #2a5298);
       min-height: 100vh;
     }
@@ -27,60 +25,41 @@
       text-align: center;
     }
 
-    input {
+    input, select {
       padding: 10px;
-      width: 65%;
       border-radius: 8px;
       border: none;
-      margin-right: 10px;
+      margin: 5px;
     }
 
     button {
       padding: 8px 12px;
-      border: none;
       border-radius: 8px;
+      border: none;
       background: #00c6ff;
-      color: black;
-      cursor: pointer;
       font-weight: bold;
-      margin: 2px;
-    }
-
-    button:hover {
-      background: #00a3cc;
+      cursor: pointer;
     }
 
     .delete-btn {
-      background: #ff4d4d;
+      background: red;
       color: white;
     }
 
     .winner {
       background: gold !important;
       color: black;
-      font-weight: bold;
     }
 
     table {
-      border-collapse: collapse;
       width: 100%;
       margin-top: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.1);
     }
 
     th, td {
-      padding: 12px;
-      text-align: left;
-    }
-
-    th {
-      background: rgba(0,0,0,0.6);
-    }
-
-    tr:nth-child(even) {
-      background: rgba(255,255,255,0.05);
+      padding: 10px;
     }
   </style>
 </head>
@@ -88,16 +67,22 @@
 
 <div class="container">
 
-  <!-- 🔥 LOGO (PASTE YOUR RAW LINK HERE) -->
-  <img src="https://raw.githubusercontent.com/yourname/league-app/main/your-image-name.png" style="width:80px;">
-  <h1>Leaderboard-Builder</h1>
+  <!-- LOGO -->
+  <img src="PASTE-YOUR-LOGO-LINK-HERE" style="width:80px; margin-bottom:10px;">
 
-  <input id="name" placeholder="Enter player name">
+  <h1>🏆Leaderboard-builder🏆 </h1>
+
+  <input id="name" placeholder="Player name">
+
+  <!-- 🌍 COUNTRY SELECT -->
+  <select id="country"></select>
+
   <button onclick="addPlayer()">Add</button>
 
   <table>
     <thead>
       <tr>
+        <th>Country</th>
         <th>Player</th>
         <th>Points</th>
         <th>Actions</th>
@@ -110,6 +95,31 @@
 <script>
 let players = JSON.parse(localStorage.getItem("league")) || [];
 
+// 🌍 ALL COUNTRIES LIST
+const countries = [
+"🇦🇫 Afghanistan","🇦🇱 Albania","🇩🇿 Algeria","🇦🇷 Argentina","🇦🇺 Australia",
+"🇦🇹 Austria","🇧🇪 Belgium","🇧🇷 Brazil","🇧🇬 Bulgaria","🇨🇦 Canada",
+"🇨🇱 Chile","🇨🇳 China","🇨🇴 Colombia","🇭🇷 Croatia","🇨🇿 Czech Republic",
+"🇩🇰 Denmark","🇪🇬 Egypt","🇫🇮 Finland","🇫🇷 France","🇩🇪 Germany",
+"🇬🇷 Greece","🇭🇺 Hungary","🇮🇳 India","🇮🇩 Indonesia","🇮🇪 Ireland",
+"🇮🇱 Israel","🇮🇹 Italy","🇯🇵 Japan","🇰🇪 Kenya","🇲🇽 Mexico",
+"🇳🇱 Netherlands","🇳🇿 New Zealand","🇳🇬 Nigeria","🇳🇴 Norway","🇵🇰 Pakistan",
+"🇵🇪 Peru","🇵🇭 Philippines","🇵🇱 Poland","🇵🇹 Portugal","🇷🇴 Romania",
+"🇷🇺 Russia","🇸🇦 Saudi Arabia","🇷🇸 Serbia","🇸🇬 Singapore","🇿🇦 South Africa",
+"🇰🇷 South Korea","🇪🇸 Spain","🇸🇪 Sweden","🇨🇭 Switzerland","🇹🇭 Thailand",
+"🇹🇷 Turkey","🇺🇦 Ukraine","🇦🇪 UAE","🇬🇧 United Kingdom","🇺🇸 USA",
+"🇻🇳 Vietnam"
+];
+
+// Fill dropdown
+const select = document.getElementById("country");
+countries.forEach(c => {
+  const option = document.createElement("option");
+  option.value = c;
+  option.textContent = c;
+  select.appendChild(option);
+});
+
 function save() {
   localStorage.setItem("league", JSON.stringify(players));
 }
@@ -121,26 +131,31 @@ function render() {
   players.sort((a,b)=>b.points-a.points);
 
   players.forEach((p, i) => {
-    const isWinner = i === 0 && players.length > 0;
+    const isWinner = i === 0;
 
-    const row = `
+    tbody.innerHTML += `
       <tr class="${isWinner ? 'winner' : ''}">
+        <td>${p.country}</td>
         <td>${isWinner ? '🏆 ' : ''}${p.name}</td>
         <td>${p.points}</td>
         <td>
           <button onclick="addPoints(${i},3)">+3</button>
           <button onclick="addPoints(${i},1)">+1</button>
-          <button class="delete-btn" onclick="deletePlayer(${i})">Delete</button>
+          <button class="delete-btn" onclick="deletePlayer(${i})">❌</button>
         </td>
-      </tr>`;
-    tbody.innerHTML += row;
+      </tr>
+    `;
   });
 }
 
 function addPlayer() {
   const name = document.getElementById("name").value;
+  const country = document.getElementById("country").value;
+
   if (!name) return;
-  players.push({name, points:0});
+
+  players.push({ name, country, points: 0 });
+
   document.getElementById("name").value = "";
   save();
   render();
